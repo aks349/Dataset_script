@@ -1,0 +1,22 @@
+#_*_MakeFile_*_
+
+# Default category (Can be overridden)
+CATEGORY ?= cat
+URL = https://storage.googleapis.com/quickdraw_dataset/full/simplified/$(CATEGORY).ndjson
+FILE = $(CATEGORY).ndjson
+
+.PHONY: all download clean
+
+# Default action: download dataset
+all: download
+
+# Download dataset
+download:
+	@echo "Downloading dataset for category: $(CATEGORY)"
+	@wget -O $(FILE) $(URL) || curl -o $(FILE) $(URL)
+	@echo "Downloaded: $(FILE)"
+
+# Clean up downloaded file
+clean:
+	@rm -f *.ndjson
+	@echo "Cleaned dataset files."
